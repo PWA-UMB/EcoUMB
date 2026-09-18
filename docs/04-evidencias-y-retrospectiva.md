@@ -6,7 +6,7 @@ Regla de este documento: **solo se presenta como evidencia lo que realmente se e
 
 | # | Captura | Cómo obtenerla (5 minutos) | Dónde va en la Guía |
 |---|---|---|---|
-| 1 | **GitHub Actions en verde** | Ver sección B | §3.3 (evidencia) y paso 3 de la demo |
+| 1 | **GitHub Actions en verde** — ✅ hecha (`capturas/github-actions-ci.png`, run #1) | Ver sección B para repetirla | §3.3 (evidencia) y paso 3 de la demo |
 | 2 | **`docker compose ps`** con los 4 servicios *healthy* | Con Docker abierto: `docker compose up -d` y `docker compose ps`. Captura la terminal o la pestaña *Containers* de Docker Desktop | Paso 1 de la demo |
 | 3 | **Tablas en PostgreSQL** | `docker compose exec postgres psql -U ecoumb -c "\dt"` | Paso 2 de la demo |
 | 4 | **Registro 201 / 409 en el navegador** | <http://localhost:5173/registro> → DevTools → *Network*: filas `register` con 201 y, al repetir, 409 | Paso 4–5 de la demo |
@@ -16,7 +16,7 @@ Regla de este documento: **solo se presenta como evidencia lo que realmente se e
 
 Ya existen **capturas reales** de la ejecución en Docker en `docs/evidencias/capturas/` (PWA, Swagger y salidas de terminal), regenerables con `node scripts/capture_ui.mjs` y `node scripts/render_terminal.mjs`. Las de la PWA y Swagger son del navegador; las `term-*` son texto real de terminal dibujado sin edición y rotulado como tal. En `docs/evidencias/` hay además salidas de texto reales de las ejecuciones hechas durante el desarrollo (pruebas, cobertura, migración, prueba de humo, compose). Sirven como respaldo, pero **una captura propia de su ejecución vale más ante el docente**.
 
-## B. Cómo conseguir el pipeline de GitHub Actions en verde
+## B. Pipeline de GitHub Actions (ya ejecutado; cómo repetirlo)
 
 El repositorio local está en `Tesis/GitHub/EcoUMB` y su remoto ya apunta a `git@github.com:PWA-UMB/EcoUMB.git` (rama `main`, sin commits todavía). Subirlo lo hace el equipo desde su propia sesión de GitHub: publicar código en un servicio externo es una decisión suya.
 
@@ -29,6 +29,8 @@ git push -u origin main
 git switch -c develop && git push -u origin develop         # Git Flow
 git switch -c feature/S1-06-auth develop                    # una rama de trabajo para el PR
 ```
+
+**Estado:** el primer push (commit `9b5d3c6`) disparó el CI y los tres jobs terminaron en verde. GitHub muestra además una anotación de *deprecación de Node 20* en las acciones `checkout`/`setup-*`: es un aviso, no un fallo; se resuelve subiendo esas acciones a su versión más reciente en `.github/workflows/ci.yml`.
 
 Después: GitHub → pestaña **Actions** → workflow **CI** → esperar los tres jobs (*Backend*, *Migraciones sobre PostgreSQL 16*, *Frontend*). Capturar la página del run con los tres en verde.
 

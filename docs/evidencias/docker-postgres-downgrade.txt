@@ -1,0 +1,23 @@
+# Reversibilidad de la migración sobre PostgreSQL 16  |  2026-09-18 13:05
+
+$ psql: tipo de audit_logs.id
+bigint
+
+$ alembic downgrade base
+INFO [alembic.runtime.migration] Running downgrade 0001 -> , Esquema inicial: las 10 tablas del SAD, sección 5.
+  -> tablas restantes: alembic_version
+  -> tipos ENUM restantes (debe ser 0): 0
+
+$ alembic upgrade head
+INFO [alembic.runtime.migration] Running upgrade  -> 0001, Esquema inicial: las 10 tablas del SAD, sección 5.
+  -> tablas: 11 (10 del SAD + alembic_version)
+  -> tipos ENUM (debe ser 3): 3
+
+$ python -m app.seed (1ª vez)
+"categories_created": 3, "items_created": 15}
+$ python -m app.seed (2ª vez, idempotente)
+"categories_created": 0, "items_created": 0}
+  -> clases en waste_items: 15
+
+$ alembic check
+No new upgrade operations detected.

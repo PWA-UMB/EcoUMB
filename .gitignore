@@ -1,0 +1,30 @@
+# Secretos y entornos locales
+.env
+.env.*
+!.env.example
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+*.db
+
+# Node / frontend
+node_modules/
+dist/
+dev-dist/
+coverage/
+
+# Datos de ML (se versionan con DVC/MLflow, no con git)
+ml/data/*
+!ml/data/.gitkeep
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,59 @@
+# docker compose + PostgreSQL 16  |  2026-09-18 13:04  |  Docker 29.4.1
+
+$ docker compose ps
+SERVICE    IMAGE                STATUS                    PORTS
+api        ecoumb-api           Up 45 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+postgres   postgres:16-alpine   Up 51 seconds (healthy)   5432/tcp
+redis      redis:7-alpine       Up 51 seconds (healthy)   6379/tcp
+web        ecoumb-web           Up 39 seconds             0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+
+$ docker compose exec postgres psql -U ecoumb -c "select version()"
+PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2
+
+$ docker compose logs api   (arranque: migra y siembra antes de servir)
+INFO [alembic.runtime.migration] Running upgrade  -> 0001, Esquema inicial: las 10 tablas del SAD, sección 5.
+{"ts": "2026-09-18T18:04:08.912190+00:00", "level": "INFO", "logger": "ecoumb.seed", "message": "seed completado", "categories_created": 3, "items_created": 15}
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+$ psql \dt   (tablas tras alembic upgrade head)
+              List of relations
+ Schema |        Name        | Type  | Owner
+--------+--------------------+-------+--------
+ public | achievements       | table | ecoumb
+ public | alembic_version    | table | ecoumb
+ public | audit_logs         | table | ecoumb
+ public | classifications    | table | ecoumb
+ public | ml_model_versions  | table | ecoumb
+ public | reward_redemptions | table | ecoumb
+ public | rewards            | table | ecoumb
+ public | user_achievements  | table | ecoumb
+ public | users              | table | ecoumb
+ public | waste_categories   | table | ecoumb
+ public | waste_items        | table | ecoumb
+(11 rows)
+
+
+$ psql \dT   (tipos ENUM creados)
+            List of data types
+ Schema |       Name        | Description
+--------+-------------------+-------------
+ public | confidence_band   |
+ public | redemption_status |
+ public | user_role         |
+(3 rows)
+
+
+$ psql: categorias e items sembrados
+ bag_color | clases
+-----------+--------
+ blanca    |      6
+ negra     |      5
+ verde     |      4
+(3 rows)
+
+
+$ alembic check  (sin deriva modelo vs migración, sobre PostgreSQL)
+INFO [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO [alembic.runtime.migration] Will assume transactional DDL.
+INFO [alembic.ddl.postgresql] Detected sequence named 'audit_logs_id_seq' as owned by integer column 'audit_logs(id)', assuming SERIAL and omitting
+No new upgrade operations detected.

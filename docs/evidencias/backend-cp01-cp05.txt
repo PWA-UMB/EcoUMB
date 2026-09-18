@@ -1,0 +1,11 @@
+tests/integration/test_auth_api.py::test_register_success PASSED         [ 20%]
+tests/integration/test_auth_api.py::test_register_duplicate_email PASSED [ 40%]
+tests/integration/test_auth_api.py::test_login_success PASSED            [ 60%]
+tests/integration/test_auth_api.py::test_login_invalid_credentials PASSED [ 80%]
+tests/integration/test_auth_api.py::test_refresh_token PASSED            [100%]
+0.69s call     tests/integration/test_auth_api.py::test_login_invalid_credentials
+0.62s call     tests/integration/test_auth_api.py::test_refresh_token
+0.53s call     tests/integration/test_auth_api.py::test_login_success
+0.46s call     tests/integration/test_auth_api.py::test_register_duplicate_email
+0.24s call     tests/integration/test_auth_api.py::test_register_success
+================= 5 passed, 9 deselected, 1 warning in 3.99s ==================

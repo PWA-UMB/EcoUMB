@@ -1,0 +1,126 @@
+# pytest -v --cov  |  2026-09-18 12:50  |  Python 3.14.3  |  comando: pytest -v --durations=8 --cov=app --cov-report=term-missing
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.1.1, pluggy-1.6.0 -- <repo>\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: <repo>\backend
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1, cov-7.1.0
+collecting ... collected 56 items
+
+tests/integration/test_auth_api.py::test_register_success PASSED         [  1%]
+tests/integration/test_auth_api.py::test_register_duplicate_email PASSED [  3%]
+tests/integration/test_auth_api.py::test_login_success PASSED            [  5%]
+tests/integration/test_auth_api.py::test_login_invalid_credentials PASSED [  7%]
+tests/integration/test_auth_api.py::test_refresh_token PASSED            [  8%]
+tests/integration/test_auth_api.py::test_refresh_endpoint_rejects_an_access_token PASSED [ 10%]
+tests/integration/test_auth_api.py::test_register_rejects_weak_or_oversized_password[corta1] PASSED [ 12%]
+tests/integration/test_auth_api.py::test_register_rejects_weak_or_oversized_password[sinnumeros-largos] PASSED [ 14%]
+tests/integration/test_auth_api.py::test_register_rejects_weak_or_oversized_password[12345678901] PASSED [ 16%]
+tests/integration/test_auth_api.py::test_register_rejects_weak_or_oversized_password[\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe1\xe11] PASSED [ 17%]
+tests/integration/test_auth_api.py::test_register_rejects_invalid_email PASSED [ 19%]
+tests/integration/test_auth_api.py::test_register_cannot_choose_own_role PASSED [ 21%]
+tests/integration/test_auth_api.py::test_inactive_user_cannot_login PASSED [ 23%]
+tests/integration/test_auth_api.py::test_auth_endpoints_are_rate_limited PASSED [ 25%]
+tests/integration/test_schema_and_seed.py::test_model_defines_every_table_of_the_sad PASSED [ 26%]
+tests/integration/test_schema_and_seed.py::test_seed_inserts_three_categories_and_fifteen_items PASSED [ 28%]
+tests/integration/test_schema_and_seed.py::test_seed_maps_items_to_the_right_bag PASSED [ 30%]
+tests/integration/test_schema_and_seed.py::test_seed_is_idempotent PASSED [ 32%]
+tests/integration/test_users_rbac_health.py::test_me_requires_authentication PASSED [ 33%]
+tests/integration/test_users_rbac_health.py::test_me_returns_profile_of_the_token_owner PASSED [ 35%]
+tests/integration/test_users_rbac_health.py::test_refresh_token_cannot_be_used_as_bearer PASSED [ 37%]
+tests/integration/test_users_rbac_health.py::test_garbage_bearer_is_rejected PASSED [ 39%]
+tests/integration/test_users_rbac_health.py::test_regular_user_cannot_list_users PASSED [ 41%]
+tests/integration/test_users_rbac_health.py::test_admin_can_list_users PASSED [ 42%]
+tests/integration/test_users_rbac_health.py::test_role_change_takes_effect_for_existing_tokens PASSED [ 44%]
+tests/integration/test_users_rbac_health.py::test_health_liveness PASSED [ 46%]
+tests/integration/test_users_rbac_health.py::test_health_readiness_checks_database PASSED [ 48%]
+tests/integration/test_users_rbac_health.py::test_openapi_documents_auth_endpoints PASSED [ 50%]
+tests/integration/test_users_rbac_health.py::test_cors_allows_only_configured_origins PASSED [ 51%]
+tests/integration/test_users_rbac_health.py::test_health_readiness_reports_database_failure PASSED [ 53%]
+tests/unit/test_architecture.py::test_inner_layers_do_not_import_frameworks[domain] PASSED [ 55%]
+tests/unit/test_architecture.py::test_inner_layers_do_not_import_frameworks[application] PASSED [ 57%]
+tests/unit/test_architecture.py::test_inner_layers_do_not_import_outer_layers[domain] PASSED [ 58%]
+tests/unit/test_architecture.py::test_inner_layers_do_not_import_outer_layers[application] PASSED [ 60%]
+tests/unit/test_architecture.py::test_domain_does_not_depend_on_application PASSED [ 62%]
+tests/unit/test_config_and_limiter.py::test_production_requires_jwt_keys PASSED [ 64%]
+tests/unit/test_config_and_limiter.py::test_production_rejects_wildcard_cors PASSED [ 66%]
+tests/unit/test_config_and_limiter.py::test_cors_origins_are_split_and_trimmed PASSED [ 67%]
+tests/unit/test_config_and_limiter.py::test_only_one_jwt_key_is_a_configuration_error PASSED [ 69%]
+tests/unit/test_config_and_limiter.py::test_escaped_newlines_in_pem_env_values_are_accepted PASSED [ 71%]
+tests/unit/test_config_and_limiter.py::test_rate_limiter_blocks_then_recovers_after_the_window PASSED [ 73%]
+tests/unit/test_config_and_limiter.py::test_rate_limiter_counts_each_key_separately PASSED [ 75%]
+tests/unit/test_security.py::test_hash_uses_bcrypt_with_requested_cost PASSED [ 76%]
+tests/unit/test_security.py::test_verify_without_stored_hash_is_false_but_still_runs PASSED [ 78%]
+tests/unit/test_security.py::test_verify_rejects_passwords_longer_than_bcrypt_limit PASSED [ 80%]
+tests/unit/test_security.py::test_access_and_refresh_tokens_carry_their_type_and_role PASSED [ 82%]
+tests/unit/test_security.py::test_refresh_token_is_not_accepted_as_access PASSED [ 83%]
+tests/unit/test_security.py::test_expired_token_is_rejected PASSED       [ 85%]
+tests/unit/test_security.py::test_token_signed_with_another_key_is_rejected PASSED [ 87%]
+tests/unit/test_security.py::test_tampered_token_is_rejected PASSED      [ 89%]
+tests/unit/test_security.py::test_unsigned_token_is_rejected PASSED      [ 91%]
+tests/unit/test_use_cases.py::test_register_normalizes_email_and_hashes_password PASSED [ 92%]
+tests/unit/test_use_cases.py::test_register_duplicate_raises PASSED      [ 94%]
+tests/unit/test_use_cases.py::test_login_returns_token_pair PASSED       [ 96%]
+tests/unit/test_use_cases.py::test_login_unknown_user_still_spends_a_hash_verification PASSED [ 98%]
+tests/unit/test_use_cases.py::test_refresh_fails_if_user_was_deactivated PASSED [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\starlette\testclient.py:53
+  <repo>\backend\.venv\Lib\site-packages\starlette\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                                                Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------------------
+app\__init__.py                                         0      0   100%
+app\application\__init__.py                             0      0   100%
+app\application\auth\__init__.py                        0      0   100%
+app\application\auth\use_cases.py                      32      1    97%   81
+app\core\__init__.py                                    0      0   100%
+app\core\config.py                                     35      1    97%   49
+app\core\keys.py                                        9      0   100%
+app\core\logging.py                                    17      1    94%   20
+app\core\rate_limit.py                                 21      0   100%
+app\domain\__init__.py                                  0      0   100%
+app\domain\entities\__init__.py                         0      0   100%
+app\domain\entities\user.py                             5      0   100%
+app\domain\errors.py                                    6      0   100%
+app\domain\ports.py                                    14      0   100%
+app\domain\roles.py                                     5      0   100%
+app\infrastructure\__init__.py                          0      0   100%
+app\infrastructure\persistence\__init__.py              0      0   100%
+app\infrastructure\persistence\base.py                  2      0   100%
+app\infrastructure\persistence\models.py              127      0   100%
+app\infrastructure\persistence\session.py              13      1    92%   14
+app\infrastructure\persistence\user_repository.py      30      0   100%
+app\infrastructure\security\__init__.py                 0      0   100%
+app\infrastructure\security\passwords.py               18      0   100%
+app\infrastructure\security\tokens.py                  39      0   100%
+app\interfaces\__init__.py                              0      0   100%
+app\interfaces\api\__init__.py                          0      0   100%
+app\interfaces\api\deps.py                             44      0   100%
+app\interfaces\api\health.py                           15      0   100%
+app\interfaces\api\v1\__init__.py                       0      0   100%
+app\interfaces\api\v1\auth.py                          17      0   100%
+app\interfaces\api\v1\users.py                         14      0   100%
+app\interfaces\schemas\__init__.py                      0      0   100%
+app\interfaces\schemas\auth.py                         36      0   100%
+app\main.py                                            63      0   100%
+app\seed.py                                            45      7    84%   213-218, 228
+---------------------------------------------------------------------------------
+TOTAL                                                 607     11    98%
+============================= slowest 8 durations =============================
+2.58s call     tests/integration/test_auth_api.py::test_auth_endpoints_are_rate_limited
+0.91s call     tests/unit/test_security.py::test_hash_uses_bcrypt_with_requested_cost
+0.71s call     tests/integration/test_auth_api.py::test_login_invalid_credentials
+0.62s call     tests/integration/test_auth_api.py::test_refresh_token
+0.58s call     tests/integration/test_users_rbac_health.py::test_admin_can_list_users
+0.57s call     tests/integration/test_users_rbac_health.py::test_regular_user_cannot_list_users
+0.57s call     tests/integration/test_users_rbac_health.py::test_me_returns_profile_of_the_token_owner
+0.57s call     tests/integration/test_users_rbac_health.py::test_role_change_takes_effect_for_existing_tokens
+======================= 56 passed, 1 warning in 20.45s ========================

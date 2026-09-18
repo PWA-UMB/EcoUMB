@@ -1,0 +1,12 @@
+# Solicitudes a la API vistas por el navegador (equivalente a la pestaña Network)  |  2026-09-18 18:08
+# PWA: http://localhost:5173
+
+18:08:37  OPTIONS /api/v1/auth/register    -> HTTP 200
+18:08:37  POST /api/v1/auth/register    -> HTTP 201
+18:08:38  OPTIONS /api/v1/auth/login       -> HTTP 200
+18:08:38  POST /api/v1/auth/login       -> HTTP 200
+18:08:38  GET  /api/v1/users/me         -> HTTP 200
+18:08:39  OPTIONS /api/v1/auth/refresh     -> HTTP 200
+18:08:39  POST /api/v1/auth/refresh     -> HTTP 200
+18:08:39  GET  /api/v1/users/me         -> HTTP 200
+18:08:40  POST /api/v1/auth/register    -> HTTP 409

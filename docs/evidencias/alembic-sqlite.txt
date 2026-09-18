@@ -1,0 +1,9 @@
+# alembic (SQLite) | 2026-09-18 12:47
+$ alembic upgrade head
+INFO [alembic.runtime.migration] Running upgrade  -> 0001, Esquema inicial: las 10 tablas del SAD, sección 5.
+$ alembic check
+No new upgrade operations detected.
+$ alembic downgrade base
+INFO [alembic.runtime.migration] Running downgrade 0001 -> , Esquema inicial: las 10 tablas del SAD, sección 5.
+$ alembic upgrade head
+INFO [alembic.runtime.migration] Running upgrade  -> 0001, Esquema inicial: las 10 tablas del SAD, sección 5.

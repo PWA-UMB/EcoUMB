@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Infografía — Preservación de estilos arquitectónicos</title>
+<style>
+  @font-face { font-family: "Bricolage"; src: url("bricolage-grotesque-latin-wght-normal.woff2") format("woff2"); font-weight: 200 800; }
+  @font-face { font-family: "InterV"; src: url("inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+  :root { --forest-950:#052e16; --forest-900:#14532d; --forest-800:#166534; --forest-300:#86efac; --forest-100:#dcfce7; --forest-50:#f0fdf4; --ink:#0f172a; --danger:#b91c1c; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 2240px; background: var(--forest-50); }
+  body { font-family: "InterV", system-ui, sans-serif; color: var(--forest-950); display: flex; flex-direction: column; }
+  h1, h2, .display { font-family: "Bricolage", "InterV", sans-serif; letter-spacing: -0.02em; }
+
+  header { background: var(--forest-900); color: var(--forest-50); padding: 52px 64px 44px; position: relative; }
+  .tag { display: inline-block; font-size: 15px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--forest-300); }
+  h1 { font-size: 54px; line-height: 1.04; font-weight: 800; margin: 14px 0 16px; max-width: 900px; }
+  .lead { font-size: 22px; line-height: 1.4; color: #d7f5e0; max-width: 860px; }
+  .cite { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.2); font-size: 15px; line-height: 1.5; color: #b7e8c7; }
+  .bags { position: absolute; right: 64px; top: 56px; display: flex; gap: 10px; }
+  .bags i { width: 22px; height: 22px; border-radius: 50%; display: block; }
+  .bags i:nth-child(1){ background:#f8fafc; } .bags i:nth-child(2){ background:#0f172a; border:1px solid #475569; } .bags i:nth-child(3){ background:#22c55e; }
+
+  main { flex: 1; padding: 34px 64px 0; display: grid; gap: 22px; align-content: start; }
+  .card { background: #fff; border-radius: 26px; padding: 26px 30px; box-shadow: 0 1px 2px rgba(5,46,22,.06), 0 10px 28px -12px rgba(5,46,22,.2); }
+  .num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--forest-900); color: var(--forest-50); font-family: "Bricolage"; font-weight: 800; font-size: 20px; margin-right: 12px; }
+  h2 { font-size: 30px; font-weight: 800; display: flex; align-items: center; margin-bottom: 12px; }
+  p { font-size: 19px; line-height: 1.45; }
+  .muted { color: rgba(5,46,22,.72); }
+
+  /* Flujo problema -> propuesta */
+  .flow { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1.15fr; align-items: center; gap: 8px; margin-top: 16px; }
+  .box { border-radius: 16px; padding: 14px 16px; font-size: 16px; line-height: 1.3; font-weight: 600; text-align: center; border: 2px solid var(--forest-900); background: var(--forest-50); }
+  .box small { display: block; font-weight: 500; font-size: 13.5px; margin-top: 4px; color: rgba(5,46,22,.7); }
+  .arrow { text-align: center; font-size: 26px; color: var(--forest-800); font-weight: 700; }
+  .split { display: grid; gap: 10px; }
+  .bad { border-color: var(--danger); background: #fef2f2; color: #7f1d1d; }
+  .good { border-color: var(--forest-800); background: var(--forest-100); color: var(--forest-950); }
+
+  .styles { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .chip { font-size: 16px; font-weight: 700; padding: 8px 16px; border-radius: 999px; background: var(--forest-100); border: 1.5px solid var(--forest-800); }
+
+  .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+  .res { background: var(--forest-50); border-radius: 18px; padding: 18px; }
+  .res b { display: block; font-family: "Bricolage"; font-size: 44px; line-height: 1; color: var(--forest-800); margin-bottom: 6px; }
+  .res span { font-size: 17.5px; line-height: 1.35; font-weight: 600; }
+  .note { font-size: 14.5px; color: rgba(5,46,22,.65); margin-top: 12px; }
+
+  /* Diagrama EcoUMB */
+  .eco { display: grid; grid-template-columns: 1.05fr 1fr; gap: 26px; align-items: center; margin-top: 8px; }
+  .layers { display: grid; gap: 8px; }
+  .layer { border-radius: 14px; padding: 11px 16px; font-size: 16px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .layer small { font-weight: 500; font-size: 13.5px; opacity: .85; }
+  .l1 { background: var(--forest-900); color: #fff; }
+  .l2 { background: var(--forest-800); color: #fff; }
+  .l3 { background: var(--forest-300); color: var(--forest-950); }
+  .l4 { background: var(--forest-100); color: var(--forest-950); border: 2px solid var(--forest-800); }
+  .dep { text-align: center; font-size: 14px; color: var(--forest-800); font-weight: 700; margin: -2px 0; }
+  .testbox { background: var(--ink); color: #e2e8f0; border-radius: 16px; padding: 14px 16px; font-family: Consolas, "Cascadia Mono", monospace; font-size: 14px; line-height: 1.5; margin-top: 12px; }
+  .testbox em { color: #4ade80; font-style: normal; }
+
+  .concl { background: var(--forest-900); color: var(--forest-50); }
+  .concl h2 .num { background: var(--forest-300); color: var(--forest-950); }
+  .concl p { font-size: 22px; line-height: 1.45; }
+  .concl .draft { display: inline-block; margin-top: 12px; font-size: 13.5px; color: var(--forest-300); }
+
+  footer { padding: 18px 64px 26px; font-size: 14px; line-height: 1.45; color: rgba(5,46,22,.72); display: flex; justify-content: space-between; gap: 28px; }
+  footer b { color: var(--forest-950); }
+</style>
+</head>
+<body>
+<header>
+  <div class="bags" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="tag">Guía de laboratorio 5 · Software Architecture · Trabajo autónomo</span>
+  <h1>Que optimizar no rompa la arquitectura</h1>
+  <p class="lead">Cuando un algoritmo propone cambios a una arquitectura, ¿cómo evitamos que deshaga el estilo con el que fue diseñada? Un estudio sobre líneas de producto de software.</p>
+  <p class="cite"><b>Mariani, T., Colanzi, T. E., &amp; Vergilio, S. R. (2016).</b> Preserving architectural styles in the search based design of software product line architectures. <i>Journal of Systems and Software, 115</i>, 157–173. https://doi.org/10.1016/j.jss.2016.01.039</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2><span class="num">1</span>El problema</h2>
+    <p>Los <b>estilos arquitectónicos</b> organizan los elementos de una arquitectura y aportan <b>flexibilidad, extensibilidad y mantenibilidad</b>. Pero en el <b>diseño basado en búsqueda</b> (optimización automática), los operadores de búsqueda <b>alteran esa organización</b> y pueden <b>violar las reglas del estilo</b>, dejando una arquitectura más difícil de entender.</p>
+    <div class="styles"><span class="chip">Estilo en capas</span><span class="chip">Estilo cliente/servidor</span><span class="muted" style="font-size:15px;align-self:center">— los dos que estudia el artículo</span></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">2</span>La propuesta</h2>
+    <p>Un <b>conjunto de operadores de búsqueda</b> que respetan las reglas del estilo <b>durante</b> la optimización, implementados en <b>MOA4PLA</b>, un enfoque de optimización multiobjetivo para diseñar arquitecturas de líneas de producto (PLA).</p>
+    <div class="flow">
+      <div class="box">Arquitectura con estilo<small>capas o cliente/servidor</small></div>
+      <div class="arrow">→</div>
+      <div class="box">Operador de búsqueda<small>propone un cambio</small></div>
+      <div class="arrow">→</div>
+      <div class="split">
+        <div class="box bad">Operador tradicional<small>puede violar las reglas ✗</small></div>
+        <div class="box good">Operadores propuestos<small>preservan el estilo ✓</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">3</span>Lo que reporta la evaluación empírica</h2>
+    <div class="results">
+      <div class="res"><b>✓</b><span>Contribuyen a obtener <u>mejores soluciones</u></span></div>
+      <div class="res"><b>✓</b><span>Se <u>preserva el estilo</u> adoptado</span></div>
+      <div class="res"><b>✓</b><span>Mejoran <u>algunas métricas</u> de software</span></div>
+    </div>
+    <p class="note">Resumen del artículo; no se citan cifras porque el resumen no las incluye.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">4</span>¿Y en EcoUMB?</h2>
+    <p class="muted" style="font-size:16.5px">Análisis del equipo: usamos los mismos dos estilos (cliente/servidor entre la PWA y la API; capas en el backend hexagonal) y el ML queda como servicio aparte para evolucionar sin tocar el dominio.</p>
+    <div class="eco">
+      <div class="layers">
+        <div class="layer l1">interfaces <small>routers · schemas</small></div>
+        <div class="dep">↓ depende de</div>
+        <div class="layer l2">application <small>casos de uso</small></div>
+        <div class="dep">↓ depende de</div>
+        <div class="layer l4">domain <small>entidades · puertos</small></div>
+        <div class="dep">↑ implementa</div>
+        <div class="layer l3">infrastructure <small>SQLAlchemy · JWT · bcrypt</small></div>
+      </div>
+      <div>
+        <p style="font-size:17.5px"><b>Nuestro “operador de preservación” es una prueba:</b> si un cambio hace que <i>domain</i> o <i>application</i> importen un framework o una capa exterior, la suite falla.</p>
+        <div class="testbox">tests/unit/test_architecture.py<br/><em>5 pruebas</em> · regla de dependencia<br/>· sin frameworks en el núcleo<br/>· sin importar capas externas</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card concl">
+    <h2><span class="num">5</span>Conclusión</h2>
+    <p>Un estilo arquitectónico solo vale si sobrevive a los cambios. En EcoUMB lo protegemos con pruebas automáticas; el artículo muestra que, cuando los cambios los propone un algoritmo, esa protección debe vivir <b>dentro del propio método de optimización</b>.</p>
+    <span class="draft">Conclusión propuesta por el equipo — ajustar con sus propias palabras.</span>
+  </section>
+</main>
+
+<footer>
+  <div><b>Fuente de la información:</b> resumen (abstract) publicado del artículo. El texto completo está detrás del muro de pago de ScienceDirect y no fue consultado; el punto 4 es análisis propio del equipo, no de los autores.</div>
+  <div style="text-align:right;white-space:nowrap"><b>EcoUMB</b><br/>Universidad Manuela Beltrán</div>
+</footer>
+</body>
+</html>

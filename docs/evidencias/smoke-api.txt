@@ -1,0 +1,19 @@
+# scripts/smoke_api.sh  |  2026-09-18 12:46  |  API real (uvicorn) + SQLite migrada con Alembic
+API: http://127.0.0.1:8000   usuario de prueba: demo.1789753611@umb.edu.co
+OK    GET /health                                                    -> HTTP 200
+OK    GET /health/ready (base de datos alcanzable)                   -> HTTP 200
+OK    GET /docs (Swagger UI)                                         -> HTTP 200
+OK    POST /auth/register correo nuevo                               -> HTTP 201
+OK    POST /auth/register mismo correo (otra capitalización)        -> HTTP 409
+OK    POST /auth/login credenciales correctas (devuelve tokens)      -> yes
+OK    POST /auth/login contraseña incorrecta                        -> HTTP 401
+OK    POST /auth/login correo inexistente                            -> HTTP 401
+OK      mismo mensaje en ambos casos (no revela el campo)            -> same
+OK    GET /users/me con access token                                 -> HTTP 200
+OK    GET /users/me sin token                                        -> HTTP 401
+OK    GET /users/me usando el refresh token                          -> HTTP 401
+OK    GET /users (solo admin) con usuario normal                     -> HTTP 403
+OK    POST /auth/refresh con refresh token válido                   -> HTTP 200
+OK    POST /auth/refresh con el access token                         -> HTTP 401
+
+Todas las verificaciones pasaron.

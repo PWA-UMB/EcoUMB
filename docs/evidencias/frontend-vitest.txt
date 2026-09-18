@@ -1,0 +1,46 @@
+ RUN  v2.1.9 <repo>/frontend
+      Coverage enabled with v8
+ ✓ src/features/auth/schemas.test.ts (8 tests) 12ms
+ ✓ src/lib/api.test.ts (6 tests) 21ms
+ ✓ src/pages/LoginPage.test.tsx (10 tests) 3046ms
+   ✓ Inicio de sesión (S1-08) > valida el formulario antes de llamar al servidor 312ms
+   ✓ Inicio de sesión (S1-08) > inicia sesión, llega al Home y guarda solo el refresh token 678ms
+   ✓ Inicio de sesión (S1-08) > muestra un mensaje claro ante credenciales inválidas y se queda en el login 579ms
+   ✓ Inicio de sesión (S1-08) > informa cuando no hay conexión con el servidor 650ms
+   ✓ Inicio de sesión (S1-08) > informa cuando se superó el límite de intentos (429) 651ms
+ ✓ src/pages/RegisterPage.test.tsx (4 tests) 4025ms
+   ✓ Registro (S1-08) > valida contraseña débil y confirmación distinta sin llamar al servidor 837ms
+   ✓ Registro (S1-08) > crea la cuenta y lleva al login con aviso y correo precargado 1229ms
+   ✓ Registro (S1-08) > no envía full_name cuando el nombre queda vacío 993ms
+   ✓ Registro (S1-08) > un correo repetido (409) se marca en el campo de correo 965ms
+ Test Files  4 passed (4)
+      Tests  28 passed (28)
+   Start at  12:44:52
+   Duration  7.61s (transform 255ms, setup 1.60s, collect 1.35s, tests 7.10s, environment 7.60s, prepare 985ms)
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------|---------|----------|---------|---------|-------------------
+All files          |    96.2 |    91.11 |    92.5 |    96.2 |
+ app               |     100 |      100 |     100 |     100 |
+  App.tsx          |     100 |      100 |     100 |     100 |
+ components        |     100 |      100 |     100 |     100 |
+  AuthLayout.tsx   |     100 |      100 |     100 |     100 |
+ components/ui     |     100 |      100 |     100 |     100 |
+  Alert.tsx        |     100 |      100 |     100 |     100 |
+  Button.tsx       |     100 |      100 |     100 |     100 |
+  FormField.tsx    |     100 |      100 |     100 |     100 |
+ features/auth     |   91.54 |    81.25 |     100 |   91.54 |
+  authApi.ts       |     100 |      100 |     100 |     100 |
+  errors.ts        |   72.72 |     62.5 |     100 |   72.72 | 14-16,20-22
+  schemas.ts       |     100 |      100 |     100 |     100 |
+ lib               |     100 |       96 |   66.66 |     100 |
+  api.ts           |     100 |       96 |   66.66 |     100 | 72
+ pages             |   95.13 |    85.71 |   88.88 |   95.13 |
+  HomePage.tsx     |     100 |       60 |     100 |     100 | 8-10
+  LoginPage.tsx    |     100 |    93.33 |     100 |     100 | 35
+  NotFoundPage.tsx |      20 |      100 |       0 |      20 | 4-13
+  RegisterPage.tsx |    98.7 |    86.66 |     100 |    98.7 | 54
+ stores            |   91.93 |       85 |     100 |   91.93 |
+  authStore.ts     |   91.93 |       85 |     100 |   91.93 | 43-45,59-60
+-------------------|---------|----------|---------|---------|-------------------

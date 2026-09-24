@@ -32,7 +32,7 @@ from app.infrastructure.security.passwords import BcryptPasswordHasher
 from app.infrastructure.security.tokens import JwtTokenService
 from app.infrastructure.storage.local import LocalImageStorage
 from app.interfaces.api import health
-from app.interfaces.api.v1 import auth, classifications, users
+from app.interfaces.api.v1 import auth, classifications, education, users
 
 logger = logging.getLogger("ecoumb")
 
@@ -186,4 +186,5 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(auth.router, prefix=API_PREFIX)
     app.include_router(users.router, prefix=API_PREFIX)
     app.include_router(classifications.router, prefix=API_PREFIX)
+    app.include_router(education.router, prefix=API_PREFIX)
     return app

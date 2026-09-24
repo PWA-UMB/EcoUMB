@@ -1,0 +1,159 @@
+{
+  "model": "mobilenet_v3_large (ImageNet) + cabeza de 8 clases",
+  "arch": "mobilenet_v3_large",
+  "classes": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+    "trash",
+    "organic_food",
+    "vegetation"
+  ],
+  "inference_views": [
+    "center"
+  ],
+  "dataset": {
+    "name": "combined",
+    "sources": [
+      "trashnet",
+      "realwaste"
+    ],
+    "zip_sha256": {
+      "trashnet": "0bf472790f8b20e5c950d5b5012a9d38af0d3392efd65f8ce171334fc16b07c2",
+      "realwaste": "1ede08b32358ee62065bcc1c8cb47a2ece04e8dff5b1fb53342bb8750895b2f3"
+    },
+    "split": {
+      "train": 5095,
+      "val": 1091,
+      "test": 1093
+    },
+    "seed": 42
+  },
+  "test": {
+    "macro_f1": 0.9235,
+    "accuracy_top1": 0.9167,
+    "accuracy_top3": 0.9817,
+    "category_macro_f1": 0.9428,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.9318,
+        "recall": 0.9535,
+        "f1-score": 0.9425,
+        "support": 129.0
+      },
+      "glass": {
+        "precision": 0.9348,
+        "recall": 0.9348,
+        "f1-score": 0.9348,
+        "support": 138.0
+      },
+      "metal": {
+        "precision": 0.8838,
+        "recall": 0.9669,
+        "f1-score": 0.9235,
+        "support": 181.0
+      },
+      "paper": {
+        "precision": 0.95,
+        "recall": 0.9268,
+        "f1-score": 0.9383,
+        "support": 164.0
+      },
+      "plastic": {
+        "precision": 0.904,
+        "recall": 0.8443,
+        "f1-score": 0.8732,
+        "support": 212.0
+      },
+      "trash": {
+        "precision": 0.8955,
+        "recall": 0.8451,
+        "f1-score": 0.8696,
+        "support": 142.0
+      },
+      "organic_food": {
+        "precision": 0.8939,
+        "recall": 0.9672,
+        "f1-score": 0.9291,
+        "support": 61.0
+      },
+      "vegetation": {
+        "precision": 0.9701,
+        "recall": 0.9848,
+        "f1-score": 0.9774,
+        "support": 66.0
+      }
+    },
+    "roc_auc_ovr": {
+      "cardboard": 0.9969,
+      "glass": 0.9863,
+      "metal": 0.9948,
+      "paper": 0.9972,
+      "plastic": 0.9859,
+      "trash": 0.992,
+      "organic_food": 0.9995,
+      "vegetation": 0.9999
+    },
+    "per_source": {
+      "trashnet": {
+        "n": 379,
+        "macro_f1": 0.8641,
+        "accuracy_top1": 0.8892
+      },
+      "realwaste": {
+        "n": 714,
+        "macro_f1": 0.9372,
+        "accuracy_top1": 0.9314
+      }
+    },
+    "share_with_confidence_ge_0.65": 0.8591,
+    "accuracy_when_confidence_ge_0.65": 0.9702
+  },
+  "umb_photos": {
+    "n": 2,
+    "accuracy_top1": 0.5,
+    "note": "fotos reales de la UMB etiquetadas a mano o por usuarios; muestra muy pequeña: es anecdótica",
+    "photos": [
+      {
+        "file": "lata_aluminio/lata_cerveza_1.jpg",
+        "expected": "metal",
+        "predicted": "paper",
+        "confidence": 0.35,
+        "correct": false,
+        "probability_of_expected": 0.214
+      },
+      {
+        "file": "lata_aluminio/lata_cerveza_2.jpg",
+        "expected": "metal",
+        "predicted": "metal",
+        "confidence": 0.677,
+        "correct": true,
+        "probability_of_expected": 0.677
+      }
+    ]
+  },
+  "targets": {
+    "macro_f1": 0.8,
+    "macro_f1_met": true,
+    "category_macro_f1": 0.9,
+    "category_macro_f1_met": true
+  },
+  "deployment": {
+    "onnx_size_mb": 16.84,
+    "latency_ms_cpu_1_image": {
+      "median": 3.65,
+      "p95": 7.16
+    },
+    "max_abs_logit_diff_torch_vs_onnx": 7e-06
+  },
+  "environment": {
+    "python": "3.14.3",
+    "torch": "2.14.0+cu126",
+    "torchvision": "0.29.0+cu126",
+    "onnx": "1.23.0",
+    "onnxruntime": "1.30.0",
+    "scikit-learn": "1.9.1"
+  }
+}

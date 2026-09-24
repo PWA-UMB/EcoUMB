@@ -4,6 +4,7 @@ import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { AppShell } from '@/components/AppShell'
 import { HistoryPage } from '@/pages/HistoryPage'
 import { HomePage } from '@/pages/HomePage'
+import { LearnPage } from '@/pages/LearnPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { ProfilePage } from '@/pages/ProfilePage'
@@ -53,6 +54,7 @@ export function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/escanear" element={<ScanPage />} />
           <Route path="/historial" element={<HistoryPage />} />
+          <Route path="/aprende" element={<LearnPage />} />
           <Route path="/perfil" element={<ProfilePage />} />
         </Route>
       </Route>

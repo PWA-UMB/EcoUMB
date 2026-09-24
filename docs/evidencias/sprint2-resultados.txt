@@ -1,0 +1,12 @@
+# Resultados de clasificación devueltos por la API en el recorrido real (simulados, deterministas por foto)
+
+cámara: Resultado simulado: el modelo de inteligencia artificial real se integra en el Sprint 3. | Restos de comida cocinada | Bolsa verde | Orgánico | Va en la bolsa verde porque los restos de comida se descomponen. | Consejo: Escurre los líquidos antes de depositarlos. | Confianza media · 75 % | Otras posibilidades | Empaque de comida con residuos | Bolsa negra | 15 % | Lata de aluminio | Bolsa blanca | 10 %
+galería (verde): Resultado simulado: el modelo de inteligencia artificial real se integra en el Sprint 3. | Cáscara de fruta | Bolsa verde | Orgánico | Va en la bolsa verde porque es un residuo orgánico compostable. | Consejo: Deposítala sin bolsas plásticas ni empaques. | Confianza alta · 95 %
+galería (azul): Resultado simulado: el modelo de inteligencia artificial real se integra en el Sprint 3. | Restos de comida cocinada | Bolsa verde | Orgánico | Va en la bolsa verde porque los restos de comida se descomponen. | Consejo: Escurre los líquidos antes de depositarlos. | Confianza alta · 89 %
+galería (rojo): Resultado simulado: el modelo de inteligencia artificial real se integra en el Sprint 3. | Cartón limpio | Bolsa blanca | Aprovechable | Va en la bolsa blanca porque el cartón seco se recicla. | Consejo: Aplana las cajas antes de depositarlas. | Confianza media · 73 % | Otras posibilidades | Empaque metalizado de snacks | Bolsa negra | 16 % | Lata de aluminio | Bolsa blanca | 11 %
+galería (amarillo): Resultado simulado: el modelo de inteligencia artificial real se integra en el Sprint 3. | Botella PET | Bolsa blanca | Aprovechable | Va en la bolsa blanca porque es plástico reciclable. | Consejo: Vacíala y aplástala antes de depositarla. | Confianza media · 82 % | Otras posibilidades | Cáscara de fruta | Bolsa verde | 11 % | Restos de comida cocinada | Bolsa verde | 7 %
+galería (gris): Resultado simulado: el modelo de inteligencia artificial real se integra en el Sprint 3. | No logramos identificar este residuo con seguridad | Estas son las opciones más probables: | Confianza baja · 44 % | Opciones | Lata de aluminio | Bolsa blanca | 44 % | Residuo de poda / hojas | Bolsa verde | 33 % | Cartón limpio | Bolsa blanca | 22 %
+BAJA: captura tomada
+
+Foto sin token: HTTP 401
+Foto con token del dueño: HTTP 200 (image/png)

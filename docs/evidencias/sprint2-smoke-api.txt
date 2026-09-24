@@ -1,0 +1,30 @@
+# scripts/smoke_sprint2.sh  |  2026-09-18 19:58  |  API real en Docker (FastAPI + PostgreSQL 16) con el modelo ONNX v1 activo
+API: http://localhost:8000   ejecución: 1789779489
+OK    Usuarios A y B con sesión iniciada                              -> yes
+--- Perfil (RF-04)
+OK    PATCH /users/me cambia el nombre                                 -> Laura Gómez
+OK    GET /users/me conserva el cambio                                 -> Laura Gómez
+OK    PATCH /users/me no permite cambiar el rol (extra=forbid)         -> HTTP 422
+OK    PATCH /users/me sin token                                        -> HTTP 401
+--- Clasificación simulada (RF-09, RF-10, RF-13 a RF-15)
+OK    POST /classifications con PNG rojo                               -> HTTP 201
+OK      la respuesta declara si es simulada (true/false)               -> yes
+OK      incluye las tres mejores opciones                              -> yes
+OK    POST /classifications con otro PNG (azul)                        -> HTTP 201
+OK    La misma foto da el mismo resultado (determinista)               -> yes
+OK    Archivo que no es imagen (aunque se llame .jpg)                  -> HTTP 415
+OK    Archivo vacío                                                   -> HTTP 422
+OK    Imagen de más de 5 MB                                           -> HTTP 413
+OK    Sin token                                                        -> HTTP 401
+--- Historial (RF-16, RF-17)
+OK    GET /classifications/me del usuario A (4 registros)              -> 4
+OK      paginación: limit=2 devuelve 2 elementos                      -> 2
+OK      limit fuera de rango (0)                                       -> HTTP 422
+OK    GET /classifications/me del usuario B (no ve lo de A)            -> 0
+--- Privacidad de las fotos
+OK    Foto con el token del dueño                                     -> HTTP 200
+OK    Foto sin token                                                   -> HTTP 401
+OK    Foto con el token de otro usuario (no revela que existe)         -> HTTP 404
+OK    Cabecera Content-Type de la foto                                 -> image/png
+
+Resultado: todas las comprobaciones pasaron.

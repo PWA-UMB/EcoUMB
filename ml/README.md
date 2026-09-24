@@ -1,11 +1,19 @@
-# ml/ — servicio de Machine Learning (reservado)
+# ml/ — modelo de clasificación de residuos
 
-Sin código en el Sprint 1. La estructura existe para cumplir S1-01 y para que el resto del sistema ya conozca el contrato del modelo.
+Entrenamiento y evaluación del modelo v1 (Sprint 3). La API **no** depende de PyTorch: solo carga el `model.onnx` con `onnxruntime`.
 
-Plan (SAD §7 y Plan de Sprints, Sprint 3–4):
+```
+ml/
+├── src/common.py        constantes, particiones 70/15/15 con semilla, transformaciones
+├── src/train.py         MobileNetV3-Small + transfer learning (cabeza → ajuste fino)
+├── src/evaluate.py      evaluación única en test, exportación ONNX, métricas y ficha
+├── models/v1/           lo que se despliega: model.onnx, labels.json, class_map.json,
+│                        metrics.json, matriz de confusión, splits.json, MODEL_CARD.md
+├── data/                dataset (NO se versiona; ver la ficha del modelo)
+└── requirements.txt     dependencias de entrenamiento
+```
 
-- `data/` — dataset bootstrap (TrashNet + TACO, mapeado a las 15 clases del catálogo UMB) y capturas propias. **No se versiona en git.**
-- `notebooks/` — análisis exploratorio (EDA) y entrenamiento inicial (S1-10, prioridad P2).
-- `src/` — pipeline de entrenamiento con MobileNetV3-Small (transfer learning), seguimiento con MLflow y evaluación con F1 por objeto y por categoría.
-
-Contrato con el backend: el modelo predice una de las 15 clases (`waste_items.class_id` 0..14, ya sembradas en la base de datos) y la categoría/bolsa se obtiene por mapeo en `waste_items → waste_categories`. Cambiar la normativa no obliga a reentrenar.
+- **Ficha del modelo, resultados y limitaciones:** [models/v1/MODEL_CARD.md](models/v1/MODEL_CARD.md). Léela antes de citar cifras: el modelo reconoce 6 materiales, no las 15 clases UMB ni residuos orgánicos.
+- **Contrato con el backend:** el modelo predice materiales (`labels.json`); `class_map.json` los asocia con objetos del catálogo (`waste_items.code`), y la bolsa la decide la base de datos (`waste_items → waste_categories`). Cambiar la asociación o la normativa no obliga a reentrenar.
+- **Actualizar el modelo (RNF-17):** crear `models/v2/` con los mismos archivos y apuntar `MODEL_DIR` a esa carpeta. La API registra cada versión en `ml_model_versions` al usarla.
+- **Reproducir:** ver «Cómo reproducirlo» en la ficha (≈ 10 min en CPU).

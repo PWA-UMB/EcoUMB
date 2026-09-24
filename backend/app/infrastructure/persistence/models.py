@@ -29,18 +29,13 @@ from sqlalchemy import (
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import Mapped, mapped_column
 
+from app.domain.confidence import ConfidenceBand
 from app.domain.roles import Role
 from app.infrastructure.persistence.base import Base
 
 JSON_TYPE = JSON().with_variant(postgresql.JSONB(), "postgresql")
 IP_TYPE = String(45).with_variant(postgresql.INET(), "postgresql")
 BIGINT_PK = BigInteger().with_variant(Integer(), "sqlite")
-
-
-class ConfidenceBand(enum.StrEnum):
-    HIGH = "high"
-    MEDIUM = "medium"
-    LOW = "low"
 
 
 class RedemptionStatus(enum.StrEnum):

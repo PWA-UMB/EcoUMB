@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.domain.entities.user import User
-from app.domain.errors import EmailAlreadyRegistered
+from app.domain.errors import EmailAlreadyRegistered, InvalidToken
 from app.infrastructure.persistence.models import UserModel
 
 
@@ -49,3 +49,11 @@ class SqlAlchemyUserRepository:
     def list_all(self) -> list[User]:
         rows = self._session.scalars(select(UserModel).order_by(UserModel.email)).all()
         return [_to_entity(row) for row in rows]
+
+    def update_full_name(self, user_id: uuid.UUID, full_name: str | None) -> User:
+        model = self._session.get(UserModel, user_id)
+        if model is None:
+            raise InvalidToken
+        model.full_name = full_name
+        self._session.commit()
+        return _to_entity(model)

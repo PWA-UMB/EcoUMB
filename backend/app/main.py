@@ -4,6 +4,7 @@ import logging
 import time
 from collections.abc import Awaitable, Callable
 from datetime import timedelta
+from pathlib import Path
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,17 +14,31 @@ from app.core.config import Settings, get_settings
 from app.core.keys import generate_rsa_keypair
 from app.core.logging import configure_logging
 from app.core.rate_limit import SlidingWindowRateLimiter
-from app.domain.errors import EmailAlreadyRegistered, InvalidCredentials, InvalidToken
+from app.domain.errors import (
+    CatalogUnavailable,
+    ClassificationNotFound,
+    EmailAlreadyRegistered,
+    EmptyImage,
+    ImageTooLarge,
+    InvalidCredentials,
+    InvalidImage,
+    InvalidToken,
+    UnknownWasteItem,
+    UnsupportedImageType,
+)
+from app.infrastructure.ml_client.factory import build_classifier
 from app.infrastructure.persistence.session import create_db_engine, create_session_factory
 from app.infrastructure.security.passwords import BcryptPasswordHasher
 from app.infrastructure.security.tokens import JwtTokenService
+from app.infrastructure.storage.local import LocalImageStorage
 from app.interfaces.api import health
-from app.interfaces.api.v1 import auth, users
+from app.interfaces.api.v1 import auth, classifications, users
 
 logger = logging.getLogger("ecoumb")
 
 API_PREFIX = "/api/v1"
 SECURITY_HEADERS = {"X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer"}
+MULTIPART_OVERHEAD_BYTES = 64 * 1024  # el cuerpo multipart pesa un poco más que la imagen
 
 
 def _resolve_jwt_keys(settings: Settings) -> tuple[str, str]:
@@ -51,6 +66,40 @@ def _install_error_handlers(app: FastAPI) -> None:
             status_code=401,
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+    @app.exception_handler(UnsupportedImageType)
+    async def _unsupported_image(_: Request, __: UnsupportedImageType) -> JSONResponse:
+        return JSONResponse(
+            {"detail": "Formato no admitido: sube una imagen JPEG, PNG o WebP"}, status_code=415
+        )
+
+    @app.exception_handler(InvalidImage)
+    async def _invalid_image(_: Request, __: InvalidImage) -> JSONResponse:
+        return JSONResponse({"detail": "La imagen no se pudo procesar"}, status_code=422)
+
+    @app.exception_handler(EmptyImage)
+    async def _empty_image(_: Request, __: EmptyImage) -> JSONResponse:
+        return JSONResponse({"detail": "La imagen está vacía"}, status_code=422)
+
+    @app.exception_handler(ImageTooLarge)
+    async def _image_too_large(_: Request, __: ImageTooLarge) -> JSONResponse:
+        return JSONResponse(
+            {"detail": "La imagen supera el tamaño máximo permitido"}, status_code=413
+        )
+
+    @app.exception_handler(CatalogUnavailable)
+    async def _no_catalog(_: Request, __: CatalogUnavailable) -> JSONResponse:
+        return JSONResponse(
+            {"detail": "El catálogo de residuos no está disponible"}, status_code=503
+        )
+
+    @app.exception_handler(UnknownWasteItem)
+    async def _unknown_item(_: Request, __: UnknownWasteItem) -> JSONResponse:
+        return JSONResponse({"detail": "Objeto de residuo desconocido"}, status_code=422)
+
+    @app.exception_handler(ClassificationNotFound)
+    async def _classification_not_found(_: Request, __: ClassificationNotFound) -> JSONResponse:
+        return JSONResponse({"detail": "Clasificación no encontrada"}, status_code=404)
 
     @app.exception_handler(InvalidToken)
     async def _bad_token(_: Request, __: InvalidToken) -> JSONResponse:
@@ -86,6 +135,25 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         audience=settings.jwt_audience,
     )
     app.state.rate_limiter = SlidingWindowRateLimiter(limit=settings.auth_rate_limit_per_minute)
+    app.state.classify_limiter = SlidingWindowRateLimiter(
+        limit=settings.classify_rate_limit_per_minute
+    )
+    app.state.image_storage = LocalImageStorage(Path(settings.storage_dir))
+    app.state.classifier = build_classifier(settings)
+
+    # Debe registrarse ANTES que CORS: así queda por dentro y su 413 sí lleva cabeceras CORS.
+    @app.middleware("http")
+    async def _reject_oversized_upload(
+        request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
+        if request.method == "POST" and request.url.path == f"{API_PREFIX}/classifications":
+            length = request.headers.get("content-length", "")
+            limit = request.app.state.settings.max_image_bytes + MULTIPART_OVERHEAD_BYTES
+            if length.isdigit() and int(length) > limit:  # se rechaza sin leer el cuerpo
+                return JSONResponse(
+                    {"detail": "La imagen supera el tamaño máximo permitido"}, status_code=413
+                )
+        return await call_next(request)
 
     app.add_middleware(
         CORSMiddleware,
@@ -117,4 +185,5 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(health.router)
     app.include_router(auth.router, prefix=API_PREFIX)
     app.include_router(users.router, prefix=API_PREFIX)
+    app.include_router(classifications.router, prefix=API_PREFIX)
     return app

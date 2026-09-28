@@ -51,6 +51,11 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
     css: false,
+    // Por defecto Vitest mata cada prueba a los 5000 ms, el mismo margen que le dimos a
+    // findBy*/waitFor en test/setup.ts: en CI (más lento que en local) los dos límites competían
+    // y a veces ganaba este, con un "Test timed out" genérico en vez del error real. Se deja un
+    // margen claramente mayor al de asyncUtilTimeout.
+    testTimeout: 15000,
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],

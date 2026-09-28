@@ -43,7 +43,14 @@ export function mockApi(routes: Record<string, Handler>) {
       body: parseBody(init?.body),
       search: url.searchParams,
     })
-    if (blob) return new Response(blob, { status, headers: { 'Content-Type': blob.type } })
+    if (blob) {
+      // jsdom tiene su propio `Blob`, distinto del que espera el `Response` real de Node (undici):
+      // pasarlo tal cual falla ahí dentro ("object.stream is not a function") en algunas versiones
+      // de Node (reproducido con Node 22, el que usa el CI; Node 24 lo tolera). Un ArrayBuffer es un
+      // cuerpo universal, sin ese problema de identidad entre las dos implementaciones de Blob.
+      const buffer = await blob.arrayBuffer()
+      return new Response(buffer, { status, headers: { 'Content-Type': blob.type } })
+    }
     return new Response(json === null ? null : JSON.stringify(json), {
       status,
       headers: { 'Content-Type': 'application/json' },

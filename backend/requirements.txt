@@ -8,3 +8,9 @@ pydantic-settings>=2.5
 email-validator>=2.2
 bcrypt>=4.2
 PyJWT[crypto]>=2.9
+python-multipart>=0.0.9
+
+# Clasificador real (Sprint 3): inferencia del modelo ONNX exportado en ml/
+onnxruntime>=1.20
+numpy>=1.26
+pillow>=10

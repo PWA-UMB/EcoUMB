@@ -14,6 +14,8 @@ __pycache__/
 .coverage
 htmlcov/
 *.db
+# Fotos subidas en desarrollo local (en Docker viven en un volumen)
+uploads/
 
 # Node / frontend
 node_modules/
@@ -24,6 +26,10 @@ coverage/
 # Datos de ML (se versionan con DVC/MLflow, no con git)
 ml/data/*
 !ml/data/.gitkeep
+# Pesos de PyTorch: se regeneran con train.py; lo que se despliega es model.onnx
+ml/models/*/weights.pt
+# Entornos virtuales de ml/ (.venv, .venv-gpu…)
+ml/.venv*/
 
 # Sistema
 .DS_Store

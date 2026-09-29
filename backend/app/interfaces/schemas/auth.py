@@ -50,6 +50,19 @@ class LoginRequest(_StrictRequest):
         return value.strip() if isinstance(value, str) else value
 
 
+class ProfileUpdateRequest(_StrictRequest):
+    """RF-04. Solo el nombre visible es editable: correo, rol y puntos no."""
+
+    full_name: Annotated[
+        str | None, Field(max_length=120)
+    ]  # obligatorio en el cuerpo, pero puede ser null
+
+    @field_validator("full_name")
+    @classmethod
+    def _blank_name_is_none(cls, value: str | None) -> str | None:
+        return (value or "").strip() or None
+
+
 class RefreshRequest(_StrictRequest):
     refresh_token: Annotated[str, Field(min_length=1, max_length=4096)]
 

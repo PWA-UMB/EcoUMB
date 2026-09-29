@@ -1,0 +1,26 @@
+# Solicitudes a la API vistas por el navegador en el recorrido del Sprint 2  |  2026-09-19 00:10
+# PWA: http://localhost:5173
+
+00:09:57  OPTIONS /api/v1/auth/login                                   -> HTTP 200
+00:09:58  POST  /api/v1/auth/login                                   -> HTTP 200
+00:09:58  GET   /api/v1/users/me                                     -> HTTP 200
+00:09:58  GET   /api/v1/classifications/me                           -> HTTP 200
+00:10:01  OPTIONS /api/v1/classifications                              -> HTTP 200
+00:10:01  POST  /api/v1/classifications                              -> HTTP 201
+00:10:03  POST  /api/v1/classifications                              -> HTTP 201
+00:10:04  POST  /api/v1/classifications                              -> HTTP 201
+00:10:04  POST  /api/v1/classifications                              -> HTTP 201
+00:10:04  POST  /api/v1/classifications                              -> HTTP 201
+00:10:05  POST  /api/v1/classifications                              -> HTTP 201
+00:10:06  GET   /api/v1/classifications/me                           -> HTTP 200
+00:10:06  GET   /api/v1/classifications/dee61016-9c8a-4710-bc03-ebb2f7ea1a51/image -> HTTP 200
+00:10:06  GET   /api/v1/classifications/d77e0a74-6f84-40f6-9e69-e1be9b5495e6/image -> HTTP 200
+00:10:06  GET   /api/v1/classifications/2603e818-0d0c-4a48-82e2-efb9cfa956ae/image -> HTTP 200
+00:10:06  GET   /api/v1/classifications/f87f04aa-f9e2-4d0f-8a82-5f5dcfe2f0fb/image -> HTTP 200
+00:10:06  GET   /api/v1/classifications/2bf26726-3d59-45fe-9cd0-d2253c1ccd39/image -> HTTP 200
+00:10:06  GET   /api/v1/classifications/3a998470-2340-48f1-99e3-62abee0b395b/image -> HTTP 200
+00:10:08  PATCH /api/v1/users/me                                     -> HTTP 200
+00:10:09  GET   /api/v1/classifications/me                           -> HTTP 200
+00:10:10  OPTIONS /api/v1/auth/refresh                                 -> HTTP 200
+00:10:10  POST  /api/v1/auth/refresh                                 -> HTTP 200
+00:10:10  GET   /api/v1/users/me                                     -> HTTP 200

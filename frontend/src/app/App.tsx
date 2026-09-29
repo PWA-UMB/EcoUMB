@@ -1,10 +1,15 @@
 import { useEffect } from 'react'
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 
+import { AppShell } from '@/components/AppShell'
+import { HistoryPage } from '@/pages/HistoryPage'
 import { HomePage } from '@/pages/HomePage'
+import { LearnPage } from '@/pages/LearnPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { ProfilePage } from '@/pages/ProfilePage'
 import { RegisterPage } from '@/pages/RegisterPage'
+import { ScanPage } from '@/pages/ScanPage'
 import { useAuthStore } from '@/stores/authStore'
 
 function CheckingSession() {
@@ -45,7 +50,13 @@ export function App() {
         <Route path="/registro" element={<RegisterPage />} />
       </Route>
       <Route element={<RequireAuth />}>
-        <Route path="/" element={<HomePage />} />
+        <Route element={<AppShell />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/escanear" element={<ScanPage />} />
+          <Route path="/historial" element={<HistoryPage />} />
+          <Route path="/aprende" element={<LearnPage />} />
+          <Route path="/perfil" element={<ProfilePage />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

@@ -1,0 +1,9 @@
+# Entrenamiento y evaluación del modelo v1 (solo para ml/; el backend NO depende de PyTorch, usa onnxruntime).
+torch>=2.5
+torchvision>=0.20
+scikit-learn>=1.5
+onnx>=1.17
+onnxruntime>=1.20
+pillow>=10
+numpy>=1.26
+matplotlib>=3.9

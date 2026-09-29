@@ -1,0 +1,89 @@
+{
+  "model": "MobileNetV3-Small (ImageNet) + cabeza de 6 clases",
+  "dataset": {
+    "name": "TrashNet (dataset-resized)",
+    "zip_sha256": "0bf472790f8b20e5c950d5b5012a9d38af0d3392efd65f8ce171334fc16b07c2",
+    "split": {
+      "train": 1768,
+      "val": 379,
+      "test": 380
+    },
+    "seed": 42
+  },
+  "test": {
+    "macro_f1": 0.8707,
+    "accuracy_top1": 0.8763,
+    "accuracy_top3": 0.9842,
+    "category_macro_f1": 0.9035,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.931,
+        "recall": 0.9,
+        "f1-score": 0.9153,
+        "support": 60.0
+      },
+      "glass": {
+        "precision": 0.8118,
+        "recall": 0.9079,
+        "f1-score": 0.8571,
+        "support": 76.0
+      },
+      "metal": {
+        "precision": 0.8636,
+        "recall": 0.9194,
+        "f1-score": 0.8906,
+        "support": 62.0
+      },
+      "paper": {
+        "precision": 0.9167,
+        "recall": 0.8652,
+        "f1-score": 0.8902,
+        "support": 89.0
+      },
+      "plastic": {
+        "precision": 0.9206,
+        "recall": 0.7945,
+        "f1-score": 0.8529,
+        "support": 73.0
+      },
+      "trash": {
+        "precision": 0.75,
+        "recall": 0.9,
+        "f1-score": 0.8182,
+        "support": 20.0
+      }
+    },
+    "roc_auc_ovr": {
+      "cardboard": 0.9813,
+      "glass": 0.983,
+      "metal": 0.991,
+      "paper": 0.99,
+      "plastic": 0.9842,
+      "trash": 0.9932
+    },
+    "share_with_confidence_ge_0.65": 0.7895,
+    "accuracy_when_confidence_ge_0.65": 0.96
+  },
+  "targets": {
+    "macro_f1": 0.8,
+    "macro_f1_met": true,
+    "category_macro_f1": 0.9,
+    "category_macro_f1_met": true
+  },
+  "deployment": {
+    "onnx_size_mb": 6.11,
+    "latency_ms_cpu_1_image": {
+      "median": 1.66,
+      "p95": 2.61
+    },
+    "max_abs_logit_diff_torch_vs_onnx": 1.9e-05
+  },
+  "environment": {
+    "python": "3.14.3",
+    "torch": "2.14.0+cpu",
+    "torchvision": "0.29.0+cpu",
+    "onnx": "1.23.0",
+    "onnxruntime": "1.30.0",
+    "scikit-learn": "1.9.1"
+  }
+}

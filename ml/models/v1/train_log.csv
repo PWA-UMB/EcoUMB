@@ -1,0 +1,18 @@
+epoch,phase,train_loss,val_macro_f1,val_accuracy
+1,cabeza,1.2239,0.7069,0.7361
+2,cabeza,0.956,0.6754,0.6913
+3,cabeza,0.8677,0.7519,0.7836
+4,cabeza,0.7835,0.7582,0.7863
+5,cabeza,0.7469,0.7565,0.7916
+6,ajuste fino,0.7334,0.7971,0.8206
+7,ajuste fino,0.6539,0.8027,0.8311
+8,ajuste fino,0.6147,0.8355,0.8602
+9,ajuste fino,0.5328,0.8204,0.8496
+10,ajuste fino,0.5292,0.8265,0.8496
+11,ajuste fino,0.502,0.8211,0.847
+12,ajuste fino,0.4865,0.8364,0.8575
+13,ajuste fino,0.4721,0.8371,0.8575
+14,ajuste fino,0.4619,0.8434,0.8707
+15,ajuste fino,0.4507,0.8486,0.8734
+16,ajuste fino,0.4472,0.8486,0.8734
+17,ajuste fino,0.4479,0.8462,0.8707

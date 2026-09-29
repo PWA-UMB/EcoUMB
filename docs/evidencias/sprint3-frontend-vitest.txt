@@ -1,0 +1,90 @@
+# vitest run --coverage  |  2026-09-18 19:58  |  Node v24.14.0  |  comando: npx vitest run --coverage
+
+
+ RUN  v2.1.9 C:/Users/cuent/Documents/Universidad/Tesis/GitHub/EcoUMB/frontend
+      Coverage enabled with v8
+
+ ✓ src/lib/image.test.ts (10 tests) 59ms
+ ✓ src/features/auth/schemas.test.ts (8 tests) 24ms
+ ✓ src/lib/api.test.ts (6 tests) 39ms
+ ✓ src/pages/LearnPage.test.tsx (3 tests) 1171ms
+   ✓ Aprende (RF-26, RF-27, RF-28) > presenta la norma, cada bolsa con sus objetos y las buenas prácticas 711ms
+   ✓ Aprende (RF-26, RF-27, RF-28) > se abre desde la navegación 304ms
+ ✓ src/pages/HistoryPage.test.tsx (5 tests) 1418ms
+   ✓ Historial (RF-16, RF-17) > lista las clasificaciones con objeto, bolsa, confianza y miniatura protegida 797ms
+ ✓ src/pages/HomePage.test.tsx (5 tests) 1789ms
+   ✓ Inicio y navegación (Sprint 2) > muestra las últimas clasificaciones y un acceso directo a escanear 798ms
+   ✓ Inicio y navegación (Sprint 2) > la barra de navegación lleva a Escanear, Historial y Perfil 579ms
+ ✓ src/pages/ProfilePage.test.tsx (7 tests) 3648ms
+   ✓ Perfil (RF-04) > muestra correo, rol, puntos y nivel de la cuenta 522ms
+   ✓ Perfil (RF-04) > guarda el nuevo nombre y lo refleja en la sesión 498ms
+   ✓ Perfil (RF-04) > valida el largo máximo antes de llamar al servidor 2009ms
+   ✓ Perfil (RF-04) > si el servidor falla, lo informa sin perder lo escrito 376ms
+ ✓ src/pages/LoginPage.test.tsx (10 tests) 3820ms
+   ✓ Inicio de sesión (S1-08) > valida el formulario antes de llamar al servidor 629ms
+   ✓ Inicio de sesión (S1-08) > inicia sesión, llega al Home y guarda solo el refresh token 868ms
+   ✓ Inicio de sesión (S1-08) > muestra un mensaje claro ante credenciales inválidas y se queda en el login 665ms
+   ✓ Inicio de sesión (S1-08) > informa cuando no hay conexión con el servidor 679ms
+   ✓ Inicio de sesión (S1-08) > informa cuando se superó el límite de intentos (429) 701ms
+ ✓ src/pages/ScanPage.test.tsx (18 tests) 3821ms
+   ✓ Escanear: galería (RF-10) > elige una foto, muestra la vista previa y la clasifica con el token del usuario 799ms
+   ✓ Escanear: galería (RF-10) > «Escanear otro residuo» vuelve a la selección de foto 355ms
+ ✓ src/pages/RegisterPage.test.tsx (4 tests) 4534ms
+   ✓ Registro (S1-08) > valida contraseña débil y confirmación distinta sin llamar al servidor 1220ms
+   ✓ Registro (S1-08) > crea la cuenta y lleva al login con aviso y correo precargado 1274ms
+   ✓ Registro (S1-08) > no envía full_name cuando el nombre queda vacío 1054ms
+   ✓ Registro (S1-08) > un correo repetido (409) se marca en el campo de correo 983ms
+
+ Test Files  10 passed (10)
+      Tests  76 passed (76)
+   Start at  19:59:34
+   Duration  11.81s (transform 1.50s, setup 9.78s, collect 11.53s, tests 20.32s, environment 35.59s, prepare 3.78s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   98.05 |    91.15 |   95.55 |   98.05 |
+ app               |     100 |      100 |     100 |     100 |
+  App.tsx          |     100 |      100 |     100 |     100 |
+ components        |     100 |    91.66 |     100 |     100 |
+  AppShell.tsx     |     100 |      100 |     100 |     100 |
+  AuthLayout.tsx   |     100 |      100 |     100 |     100 |
+  AuthedImage.tsx  |     100 |     92.3 |     100 |     100 | 35
+  BagChip.tsx      |     100 |       50 |     100 |     100 | 5
+ components/ui     |     100 |      100 |     100 |     100 |
+  Alert.tsx        |     100 |      100 |     100 |     100 |
+  Button.tsx       |     100 |      100 |     100 |     100 |
+  FormField.tsx    |     100 |      100 |     100 |     100 |
+ features/auth     |   92.59 |    82.35 |     100 |   92.59 |
+  authApi.ts       |     100 |      100 |     100 |     100 |
+  errors.ts        |   72.72 |     62.5 |     100 |   72.72 | 14-16,20-22
+  roles.ts         |     100 |      100 |     100 |     100 |
+  schemas.ts       |     100 |      100 |     100 |     100 |
+ ...classification |    99.3 |    82.14 |     100 |    99.3 |
+  HistoryRow.tsx   |     100 |      100 |     100 |     100 |
+  ResultCard.tsx   |     100 |    78.57 |     100 |     100 | 55,74-76
+  ...icationApi.ts |     100 |      100 |     100 |     100 |
+  errors.ts        |   95.45 |       80 |     100 |   95.45 | 22
+  labels.ts        |     100 |      100 |     100 |     100 |
+ ...ures/education |     100 |      100 |     100 |     100 |
+  educationApi.ts  |     100 |      100 |     100 |     100 |
+ hooks             |   97.29 |    85.71 |     100 |   97.29 |
+  useCamera.ts     |      96 |    85.71 |     100 |      96 | 13-14
+  ...tallPrompt.ts |     100 |    85.71 |     100 |     100 | 27
+ lib               |     100 |    98.33 |   84.61 |     100 |
+  api.ts           |     100 |    96.96 |      75 |     100 | 78
+  format.ts        |     100 |      100 |     100 |     100 |
+  image.ts         |     100 |      100 |     100 |     100 |
+ pages             |    97.8 |    90.08 |   93.75 |    97.8 |
+  HistoryPage.tsx  |     100 |      100 |     100 |     100 |
+  HomePage.tsx     |     100 |    85.71 |     100 |     100 | 20-22
+  LearnPage.tsx    |     100 |    88.88 |     100 |     100 | 58
+  LoginPage.tsx    |     100 |    93.33 |     100 |     100 | 35
+  NotFoundPage.tsx |      20 |      100 |       0 |      20 | 4-13
+  ProfilePage.tsx  |     100 |     92.3 |     100 |     100 | 30
+  RegisterPage.tsx |    98.7 |    86.66 |     100 |    98.7 | 54
+  ScanPage.tsx     |   98.31 |    84.84 |   91.66 |   98.31 | 61-62
+ stores            |    92.3 |    86.36 |     100 |    92.3 |
+  authStore.ts     |    92.3 |    86.36 |     100 |    92.3 | 45-47,65-66
+-------------------|---------|----------|---------|---------|-------------------

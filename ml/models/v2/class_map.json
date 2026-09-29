@@ -1,0 +1,34 @@
+{
+  "cardboard": {
+    "item_code": "carton_limpio",
+    "category": "aprovechable"
+  },
+  "glass": {
+    "item_code": "botella_vidrio",
+    "category": "aprovechable"
+  },
+  "metal": {
+    "item_code": "lata_aluminio",
+    "category": "aprovechable"
+  },
+  "paper": {
+    "item_code": "papel_limpio",
+    "category": "aprovechable"
+  },
+  "plastic": {
+    "item_code": "botella_pet",
+    "category": "aprovechable"
+  },
+  "trash": {
+    "item_code": "empaque_comida_residuos",
+    "category": "no_aprovechable"
+  },
+  "organic_food": {
+    "item_code": "restos_comida",
+    "category": "organico"
+  },
+  "vegetation": {
+    "item_code": "residuo_poda",
+    "category": "organico"
+  }
+}

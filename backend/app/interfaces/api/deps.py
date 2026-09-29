@@ -11,8 +11,21 @@ from sqlalchemy.orm import Session
 from app.application.auth.use_cases import get_active_user
 from app.domain.entities.user import User
 from app.domain.errors import InvalidToken
-from app.domain.ports import PasswordHasher, TokenService, UserRepository
+from app.domain.ports import (
+    CategoryCatalog,
+    ClassificationRepository,
+    ImageClassifier,
+    ImageStorage,
+    PasswordHasher,
+    TokenService,
+    UserRepository,
+    WasteCatalog,
+)
 from app.domain.roles import Role
+from app.infrastructure.persistence.catalog import SqlAlchemyWasteCatalog
+from app.infrastructure.persistence.classification_repository import (
+    SqlAlchemyClassificationRepository,
+)
 from app.infrastructure.persistence.user_repository import SqlAlchemyUserRepository
 
 _bearer = HTTPBearer(auto_error=False)
@@ -82,3 +95,45 @@ def require_roles(*allowed: Role) -> Callable[[User], User]:
         return user
 
     return checker
+
+
+def get_waste_catalog(session: SessionDep) -> WasteCatalog:
+    return SqlAlchemyWasteCatalog(session)
+
+
+def get_category_catalog(session: SessionDep) -> CategoryCatalog:
+    return SqlAlchemyWasteCatalog(session)
+
+
+def get_classification_repository(session: SessionDep) -> ClassificationRepository:
+    return SqlAlchemyClassificationRepository(session)
+
+
+def get_image_classifier(request: Request) -> ImageClassifier:
+    classifier: ImageClassifier = request.app.state.classifier
+    return classifier
+
+
+def get_image_storage(request: Request) -> ImageStorage:
+    storage: ImageStorage = request.app.state.image_storage
+    return storage
+
+
+CatalogDep = Annotated[WasteCatalog, Depends(get_waste_catalog)]
+CategoryCatalogDep = Annotated[CategoryCatalog, Depends(get_category_catalog)]
+ClassificationRepositoryDep = Annotated[
+    ClassificationRepository, Depends(get_classification_repository)
+]
+ClassifierDep = Annotated[ImageClassifier, Depends(get_image_classifier)]
+StorageDep = Annotated[ImageStorage, Depends(get_image_storage)]
+
+
+def classify_rate_limit(request: Request, user: CurrentUser) -> None:
+    """Máximo N clasificaciones por minuto y usuario (SAD §8): frena abuso y fraude de puntos."""
+    wait = request.app.state.classify_limiter.retry_after(f"classify:{user.id}")
+    if wait is not None:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Demasiadas clasificaciones seguidas. Espera un momento e intenta de nuevo.",
+            headers={"Retry-After": str(max(1, math.ceil(wait)))},
+        )

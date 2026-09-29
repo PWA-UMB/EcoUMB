@@ -27,7 +27,8 @@ export function configureAuth(next: AuthHooks): void {
 }
 
 interface RequestOptions {
-  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE'
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+  /** Objeto (se envía como JSON) o `FormData` (subida de archivos: el navegador fija el boundary). */
   body?: unknown
   /** `false` para endpoints públicos (login, registro, refresh). */
   auth?: boolean
@@ -43,13 +44,14 @@ function messageFrom(payload: unknown): string {
   return GENERIC_ERROR
 }
 
-export async function request<T>(
+async function send(
   path: string,
-  { method = 'GET', body, auth = true }: RequestOptions = {},
+  { method = 'GET', body, auth = true }: RequestOptions,
   retried = false,
-): Promise<T> {
+): Promise<Response> {
+  const isForm = body instanceof FormData
   const headers: Record<string, string> = { Accept: 'application/json' }
-  if (body !== undefined) headers['Content-Type'] = 'application/json'
+  if (body !== undefined && !isForm) headers['Content-Type'] = 'application/json'
   const token = auth ? hooks.getAccessToken() : null
   if (token) headers.Authorization = `Bearer ${token}`
 
@@ -58,7 +60,7 @@ export async function request<T>(
     response = await fetch(`${API_URL}${path}`, {
       method,
       headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
     })
   } catch {
     throw new ApiError(0, 'No se pudo conectar con el servidor. Revisa tu conexión.')
@@ -66,10 +68,23 @@ export async function request<T>(
 
   if (response.status === 401 && auth && !retried) {
     const fresh = await hooks.refreshAccessToken()
-    if (fresh) return request<T>(path, { method, body, auth }, true)
+    if (fresh) return send(path, { method, body, auth }, true)
   }
+  return response
+}
 
+export async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+  const response = await send(path, options)
   const payload: unknown = response.status === 204 ? null : await response.json().catch(() => null)
   if (!response.ok) throw new ApiError(response.status, messageFrom(payload))
   return payload as T
+}
+
+/** Descarga un recurso binario protegido (p. ej. la foto de una clasificación). */
+export async function requestBlob(path: string): Promise<Blob> {
+  const response = await send(path, {})
+  if (!response.ok) {
+    throw new ApiError(response.status, messageFrom(await response.json().catch(() => null)))
+  }
+  return response.blob()
 }

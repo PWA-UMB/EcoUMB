@@ -1,0 +1,21 @@
+{
+  "chosen": "center",
+  "criterion": "Macro F1 de validaci\u00f3n (mejora m\u00ednima 0.005)",
+  "options": {
+    "center": {
+      "val_macro_f1": 0.9328,
+      "test_macro_f1": 0.9235,
+      "test_accuracy": 0.9167
+    },
+    "center+flip": {
+      "val_macro_f1": 0.9294,
+      "test_macro_f1": 0.9252,
+      "test_accuracy": 0.9186
+    },
+    "center+flip+full": {
+      "val_macro_f1": 0.937,
+      "test_macro_f1": 0.9243,
+      "test_accuracy": 0.9177
+    }
+  }
+}

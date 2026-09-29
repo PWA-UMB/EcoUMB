@@ -36,5 +36,11 @@ export const registerSchema = z
     message: 'Las contraseñas no coinciden',
   })
 
+/** RF-04: el nombre visible es opcional; vacío significa «sin nombre» y se muestra el correo. */
+export const profileSchema = z.object({
+  fullName: z.string().trim().max(120, 'Máximo 120 caracteres'),
+})
+
 export type LoginValues = z.infer<typeof loginSchema>
 export type RegisterValues = z.infer<typeof registerSchema>
+export type ProfileValues = z.infer<typeof profileSchema>

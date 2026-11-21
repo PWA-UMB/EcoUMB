@@ -43,4 +43,7 @@ export const authApi = {
     }),
 
   me: () => request<User>('/api/v1/users/me'),
+
+  updateProfile: (fullName: string | null) =>
+    request<User>('/api/v1/users/me', { method: 'PATCH', body: { full_name: fullName } }),
 }

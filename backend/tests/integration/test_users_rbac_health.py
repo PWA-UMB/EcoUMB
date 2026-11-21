@@ -126,6 +126,29 @@ def test_cors_allows_only_configured_origins(client: TestClient) -> None:
     assert "access-control-allow-origin" not in denied.headers
 
 
+def test_cors_preflight_allows_every_exposed_method(client: TestClient, app: FastAPI) -> None:
+    """El PUT de /feedback no estaba en CORS y el navegador bloqueaba la corrección."""
+    http_methods = {"get", "put", "post", "delete", "patch"}
+    exposed = {
+        method.upper()
+        for path_item in app.openapi()["paths"].values()
+        for method in path_item
+        if method in http_methods
+    }
+
+    assert "PUT" in exposed
+    for method in sorted(exposed):
+        preflight = client.options(
+            "/api/v1/classifications/x/feedback",
+            headers={
+                "Origin": "http://localhost:5173",
+                "Access-Control-Request-Method": method,
+                "Access-Control-Request-Headers": "authorization,content-type",
+            },
+        )
+        assert preflight.status_code == 200, f"el preflight de {method} fue {preflight.status_code}"
+
+
 def test_health_readiness_reports_database_failure(client: TestClient, app: FastAPI) -> None:
     def broken_session_factory() -> None:
         raise RuntimeError("base de datos caída")

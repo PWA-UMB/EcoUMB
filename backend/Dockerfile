@@ -15,7 +15,10 @@ COPY app ./app
 COPY scripts ./scripts
 
 # El proceso no corre como root.
-RUN useradd --system --no-create-home appuser
+RUN useradd --system --no-create-home appuser \
+    && mkdir -p /srv/uploads \
+    && chown appuser /srv/uploads
+ENV STORAGE_DIR=/srv/uploads
 USER appuser
 
 EXPOSE 8000

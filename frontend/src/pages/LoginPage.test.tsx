@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { useAuthStore } from '@/stores/authStore'
-import { ANA, mockApi, renderApp, TOKENS } from '@/test/utils'
+import { ANA, EMPTY_HISTORY, mockApi, renderApp, SESSION_ROUTES, TOKENS } from '@/test/utils'
 
 async function fillAndSubmit(email: string, password: string) {
   const user = userEvent.setup()
@@ -27,6 +27,7 @@ describe('Inicio de sesión (S1-08)', () => {
     mockApi({
       'POST /api/v1/auth/login': () => ({ json: TOKENS }),
       'GET /api/v1/users/me': () => ({ json: ANA }),
+      'GET /api/v1/classifications/me': () => ({ json: EMPTY_HISTORY }),
     })
     renderApp('/login')
 
@@ -84,8 +85,8 @@ describe('Sesión persistente (S1-08)', () => {
   it('recupera la sesión al recargar usando el refresh token guardado', async () => {
     useAuthStore.setState({ refreshToken: 'refresh-1' })
     mockApi({
-      'POST /api/v1/auth/refresh': () => ({ json: { access_token: 'access-2', expires_in: 900 } }),
-      'GET /api/v1/users/me': () => ({ json: ANA }),
+      ...SESSION_ROUTES,
+      'GET /api/v1/classifications/me': () => ({ json: EMPTY_HISTORY }),
     })
 
     renderApp('/')
@@ -118,8 +119,8 @@ describe('Sesión persistente (S1-08)', () => {
   it('cerrar sesión vuelve al login y borra el refresh token', async () => {
     useAuthStore.setState({ refreshToken: 'refresh-1' })
     mockApi({
-      'POST /api/v1/auth/refresh': () => ({ json: { access_token: 'access-2', expires_in: 900 } }),
-      'GET /api/v1/users/me': () => ({ json: ANA }),
+      ...SESSION_ROUTES,
+      'GET /api/v1/classifications/me': () => ({ json: EMPTY_HISTORY }),
     })
     renderApp('/')
 
@@ -132,8 +133,8 @@ describe('Sesión persistente (S1-08)', () => {
   it('con sesión activa, /login redirige al Home', async () => {
     useAuthStore.setState({ refreshToken: 'refresh-1' })
     mockApi({
-      'POST /api/v1/auth/refresh': () => ({ json: { access_token: 'access-2', expires_in: 900 } }),
-      'GET /api/v1/users/me': () => ({ json: ANA }),
+      ...SESSION_ROUTES,
+      'GET /api/v1/classifications/me': () => ({ json: EMPTY_HISTORY }),
     })
 
     renderApp('/login')

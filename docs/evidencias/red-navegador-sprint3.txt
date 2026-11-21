@@ -1,0 +1,22 @@
+# Solicitudes a la API en el recorrido del Sprint 3  |  2026-09-19 00:56
+# PWA: http://localhost:5173
+
+00:56:41  OPTIONS /api/v1/auth/login                                   -> HTTP 200
+00:56:41  POST  /api/v1/auth/login                                   -> HTTP 200
+00:56:41  GET   /api/v1/users/me                                     -> HTTP 200
+00:56:41  GET   /api/v1/classifications/me                           -> HTTP 200
+00:56:41  OPTIONS /api/v1/classifications                              -> HTTP 200
+00:56:41  POST  /api/v1/classifications                              -> HTTP 201
+00:56:43  POST  /api/v1/classifications                              -> HTTP 201
+00:56:44  POST  /api/v1/classifications                              -> HTTP 201
+00:56:45  POST  /api/v1/classifications                              -> HTTP 201
+00:56:46  POST  /api/v1/classifications                              -> HTTP 201
+00:56:47  POST  /api/v1/classifications                              -> HTTP 201
+00:56:47  GET   /api/v1/classifications/me                           -> HTTP 200
+00:56:47  GET   /api/v1/classifications/19fa0a5d-5e88-4414-99fc-4d69702a3eab/image -> HTTP 200
+00:56:47  GET   /api/v1/classifications/d00630f5-d8a9-43de-ac9f-df6ef5142bf0/image -> HTTP 200
+00:56:48  GET   /api/v1/classifications/e31bf0ca-6251-4f99-a910-a6a01a6fa763/image -> HTTP 200
+00:56:48  GET   /api/v1/classifications/7ad6dd73-46ba-480e-8712-f899dd2ed1d6/image -> HTTP 200
+00:56:48  GET   /api/v1/classifications/0138b124-74c7-4635-a555-2044286010c8/image -> HTTP 200
+00:56:48  GET   /api/v1/classifications/825931e1-e753-4c9e-ad0e-4c18a3db7045/image -> HTTP 200
+00:56:48  GET   /api/v1/education                                    -> HTTP 200

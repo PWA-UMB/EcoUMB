@@ -1,0 +1,17 @@
+{
+  "arch": "mobilenet_v3_large",
+  "dataset": "combined",
+  "robust": true,
+  "args": {
+    "version": "v3",
+    "dataset": "combined",
+    "robust": true,
+    "arch": "mobilenet_v3_large",
+    "head_epochs": 3,
+    "unfreeze_from": 0,
+    "fine_tune_lr": 0.0002,
+    "batch_size": 64,
+    "workers": 10,
+    "fine_tune_epochs": 25
+  }
+}

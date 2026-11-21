@@ -27,6 +27,15 @@ class Settings(BaseSettings):
     bcrypt_rounds: int = 12
     auth_rate_limit_per_minute: int = 10
 
+    # Clasificación de residuos (Sprint 2)
+    storage_dir: str = "./uploads"
+    max_image_bytes: int = 5 * 1024 * 1024  # 5 MB por imagen
+    classify_rate_limit_per_minute: int = 10  # por usuario (SAD §8)
+
+    # Clasificador (Sprint 3): "simulated" (sin modelo) u "onnx" (MobileNetV3 exportado en ml/)
+    classifier: str = "simulated"
+    model_dir: str = "../ml/models/v1"
+
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]

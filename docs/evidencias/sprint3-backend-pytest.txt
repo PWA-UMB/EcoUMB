@@ -1,0 +1,77 @@
+# pytest --cov  |  2026-09-18 19:58  |  Python 3.14.3  |  comando: pytest -q --cov=app --cov-report=term-missing  (Sprint 3: incluye clasificador ONNX y módulo educativo)
+
+........................................................................ [ 46%]
+........................................................................ [ 93%]
+..........                                                               [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\starlette\testclient.py:53
+  C:\Users\cuent\Documents\Universidad\Tesis\GitHub\EcoUMB\backend\.venv\Lib\site-packages\starlette\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                                                          Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------------
+app\__init__.py                                                   0      0   100%
+app\application\__init__.py                                       0      0   100%
+app\application\auth\__init__.py                                  0      0   100%
+app\application\auth\use_cases.py                                32      1    97%   81
+app\application\classification\__init__.py                        0      0   100%
+app\application\classification\images.py                         19      0   100%
+app\application\classification\use_cases.py                      31      0   100%
+app\application\education\__init__.py                             0      0   100%
+app\application\education\content.py                              3      0   100%
+app\application\education\use_cases.py                           14      0   100%
+app\application\users\__init__.py                                 0      0   100%
+app\application\users\use_cases.py                                5      0   100%
+app\core\__init__.py                                              0      0   100%
+app\core\config.py                                               40      1    98%   58
+app\core\keys.py                                                  9      0   100%
+app\core\logging.py                                              17      1    94%   20
+app\core\rate_limit.py                                           21      0   100%
+app\domain\__init__.py                                            0      0   100%
+app\domain\confidence.py                                         13      0   100%
+app\domain\entities\__init__.py                                   0      0   100%
+app\domain\entities\classification.py                            20      0   100%
+app\domain\entities\education.py                                 12      0   100%
+app\domain\entities\user.py                                       5      0   100%
+app\domain\errors.py                                             15      0   100%
+app\domain\ports.py                                              27      0   100%
+app\domain\roles.py                                               5      0   100%
+app\infrastructure\__init__.py                                    0      0   100%
+app\infrastructure\ml_client\__init__.py                          0      0   100%
+app\infrastructure\ml_client\factory.py                          11      0   100%
+app\infrastructure\ml_client\onnx.py                             68      0   100%
+app\infrastructure\ml_client\simulated.py                        25      0   100%
+app\infrastructure\persistence\__init__.py                        0      0   100%
+app\infrastructure\persistence\base.py                            2      0   100%
+app\infrastructure\persistence\catalog.py                        24      0   100%
+app\infrastructure\persistence\classification_repository.py      55      1    98%   40
+app\infrastructure\persistence\models.py                        124      0   100%
+app\infrastructure\persistence\session.py                        13      1    92%   14
+app\infrastructure\persistence\user_repository.py                37      1    97%   56
+app\infrastructure\security\__init__.py                           0      0   100%
+app\infrastructure\security\passwords.py                         18      0   100%
+app\infrastructure\security\tokens.py                            39      0   100%
+app\infrastructure\storage\__init__.py                            0      0   100%
+app\infrastructure\storage\local.py                              20      1    95%   37
+app\interfaces\__init__.py                                        0      0   100%
+app\interfaces\api\__init__.py                                    0      0   100%
+app\interfaces\api\deps.py                                       67      0   100%
+app\interfaces\api\health.py                                     15      0   100%
+app\interfaces\api\v1\__init__.py                                 0      0   100%
+app\interfaces\api\v1\auth.py                                    17      0   100%
+app\interfaces\api\v1\classifications.py                         21      0   100%
+app\interfaces\api\v1\education.py                                8      0   100%
+app\interfaces\api\v1\users.py                                   18      0   100%
+app\interfaces\schemas\__init__.py                                0      0   100%
+app\interfaces\schemas\auth.py                                   41      0   100%
+app\interfaces\schemas\classification.py                         15      0   100%
+app\interfaces\schemas\education.py                               9      0   100%
+app\main.py                                                      98      0   100%
+app\seed.py                                                      45      7    84%   213-218, 228
+-------------------------------------------------------------------------------------------
+TOTAL                                                          1078     14    99%
+154 passed, 1 warning in 60.05s (0:01:00)

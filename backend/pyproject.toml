@@ -22,7 +22,7 @@ plugins = ["pydantic.mypy"]
 exclude = ["alembic/"]
 
 [[tool.mypy.overrides]]
-module = ["jwt.*", "bcrypt.*"]
+module = ["jwt.*", "bcrypt.*", "onnxruntime.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

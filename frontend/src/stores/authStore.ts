@@ -18,6 +18,8 @@ interface AuthState {
   refreshToken: string | null
   login: (email: string, password: string) => Promise<void>
   logout: () => void
+  /** RF-04: cambia el nombre visible y refresca el usuario en memoria. */
+  updateProfile: (fullName: string | null) => Promise<void>
   /** Recupera la sesión al abrir la app a partir del refresh token guardado. */
   bootstrap: () => Promise<void>
   refreshAccessToken: () => Promise<string | null>
@@ -43,6 +45,10 @@ export const useAuthStore = create<AuthState>()(
           get().logout()
           throw error
         }
+      },
+
+      updateProfile: async (fullName) => {
+        set({ user: await authApi.updateProfile(fullName) })
       },
 
       logout: () => set({ accessToken: null, refreshToken: null, user: null, status: 'anonymous' }),

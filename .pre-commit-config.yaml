@@ -10,7 +10,7 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
       - id: check-added-large-files
-        args: ["--maxkb=500"]
+        args: ["--maxkb=30720"]  # los model.onnx pesan entre 6 y 17 MB
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.8

@@ -1,0 +1,38 @@
+# Instalabilidad de la PWA  |  2026-09-19 00:09
+# Comprobado con Edge por DevTools (Page.getInstallabilityErrors / Page.getAppManifest) sobre http://localhost:5173
+
+Errores de instalabilidad : ninguno
+Service Worker            : http://localhost:5173/ (activo: true)
+Manifiesto                : http://localhost:5173/manifest.webmanifest
+  (errores del manifiesto : ninguno)
+
+{
+  "name": "EcoUMB — Clasificación de residuos",
+  "short_name": "EcoUMB",
+  "description": "Clasifica tus residuos y aporta a la gestión ambiental de la UMB.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0fdf4",
+  "theme_color": "#14532d",
+  "lang": "es-CO",
+  "scope": "/",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

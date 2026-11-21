@@ -4,3 +4,4 @@ pytest-cov>=5.0
 httpx2>=2.0
 ruff>=0.6
 mypy>=1.11
+onnx>=1.17  # solo para construir un modelo diminuto en las pruebas del clasificador ONNX

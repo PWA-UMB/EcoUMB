@@ -32,12 +32,18 @@ services:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-ecoumb}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-ecoumb}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      STORAGE_DIR: /srv/uploads
+      CLASSIFIER: ${CLASSIFIER:-onnx}
+      MODEL_DIR: /srv/models/${MODEL_VERSION:-v3}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-}
       JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY:-}
     # Migra y siembra antes de servir; ambos pasos son idempotentes.
     command: >
       sh -c "alembic upgrade head && python -m app.seed &&
              uvicorn app.main:create_app --factory --host 0.0.0.0 --port 8000"
+    volumes:
+      - uploads:/srv/uploads
+      - ./ml/models:/srv/models:ro
     ports:
       - "8000:8000"
     depends_on:
@@ -67,3 +73,4 @@ services:
 
 volumes:
   pgdata:
+  uploads:

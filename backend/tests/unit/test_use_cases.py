@@ -43,6 +43,11 @@ class InMemoryUserRepository:
     def list_all(self) -> list[User]:
         return list(self.users.values())
 
+    def update_full_name(self, user_id: uuid.UUID, full_name: str | None) -> User:
+        updated = User(**{**self.users[user_id].__dict__, "full_name": full_name})
+        self.users[user_id] = updated
+        return updated
+
 
 class SpyHasher(BcryptPasswordHasher):
     def __init__(self) -> None:
